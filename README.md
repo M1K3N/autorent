@@ -8,11 +8,9 @@ Aplikacja Django do zarządzania wynajmem samochodów z panelem administracyjnym
 
 ## Instalacja i Uruchomienie
 
-### 1. Klonowanie repozytorium
-```bash
-git clone https://github.com/M1K3N/autorent.git
-cd autorent
-```
+### 1. Inicjalizacja projektu
+
+Wchodzimy w folder główny projektu (folder w którym znajduje się manage.py) i odpalamy CMD, a następnie:
 
 ### 2. Tworzenie wirtualnego środowiska
 ```bash

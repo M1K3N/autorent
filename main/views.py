@@ -535,3 +535,20 @@ def car_delete(request, slug):
         car.delete()
         return redirect('admin_panel')
     return render(request, 'main/car_delete.html', {'car': car})
+
+
+@login_required
+def reservation_delete(request, pk):
+    reservation = get_object_or_404(Reservation, pk=pk)
+
+    if request.user != reservation.user and not request.user.is_staff:
+        return redirect('profile')
+
+    if request.method == 'POST':
+        reservation.status = 'cancelled'
+        reservation.save()
+
+        messages.success(request, 'Rezerwacja została anulowana.')
+        return redirect('profile')
+
+    return render(request, 'main/reservation_delete.html', {'reservation': reservation})

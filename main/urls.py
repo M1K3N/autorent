@@ -15,4 +15,5 @@ urlpatterns = [
     path('panel-admina/edytuj/<slug:slug>/', views.car_update, name='car_update'),
     path('panel-admina/usun/<slug:slug>/', views.car_delete, name='car_delete'),
     path('profil/', views.profile, name='profile'),
+    path('rezerwacja/anuluj/<int:pk>/', views.reservation_delete, name='reservation_delete'),
 ]

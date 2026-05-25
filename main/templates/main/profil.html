@@ -68,6 +68,13 @@
                         <strong>Status:</strong>
                         {{ reservation.get_status_display }}
                     </p>
+
+                    {% if reservation.status != 'cancelled' %}
+                        <form method="POST" action="{% url 'reservation_delete' pk=reservation.pk %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn">Anuluj rezerwację</button>
+                        </form>
+                    {% endif %}
                 </div>
             {% endfor %}
         {% else %}
