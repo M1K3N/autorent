@@ -5,15 +5,13 @@ Aplikacja Django do zarządzania wynajmem samochodów z panelem administracyjnym
 ## Wymagania
 
 - Python 3.10+
-- Django 6.0.5
-- Pillow (do obsługi ImageField)
 
 ## Instalacja i Uruchomienie
 
 ### 1. Klonowanie repozytorium
 ```bash
-git clone <url-repozytorium>
-cd Autorent
+git clone https://github.com/M1K3N/autorent.git
+cd autorent
 ```
 
 ### 2. Tworzenie wirtualnego środowiska
@@ -38,7 +36,7 @@ python manage.py setup
 ```
 
 Ta komenda automatycznie:
-- Tworzy konto administratora (username: `admin`, hasło: `admin123`)
+- Tworzy konto administratora (username: `admin`, email: `admin@autorent.pl` hasło: `admin123`)
 - Ładuje 20 domyślnych samochodów z obrazami
 
 ### 6. Uruchomienie serwera
@@ -51,11 +49,9 @@ Aplikacja będzie dostępna pod: `http://localhost:8000`
 ## Logowanie do Panelu Admina
 
 - **Strona logowania:** http://localhost:8000/logowanie/
-- **Username:** admin (lub **Email:** admin@autorent.pl)
+- **Email:** admin@autorent.pl
 - **Hasło:** admin123
 - **Panel admina:** http://localhost:8000/panel-admina/
-
-Możesz się zalogować używając **nazwy użytkownika** lub **adresu email**.
 
 ## Struktura Projektu
 
@@ -82,7 +78,7 @@ Autorent/
 - 👤 Rejestracja i logowanie
 - 🚗 Przeglądanie dostępnych samochodów
 - 📅 Rezerwacja samochodów na wybrane daty
-- 💳 Wybór metody płatności (BLIK, Karta, Przelew)
+- 💳 Wybór metody płatności (BLIK, Karta, Przelew) - proces płatności fikcyjny - omijany
 - 📊 Historia rezerwacji w profilu
 - ❌ Anulowanie rezerwacji
 
@@ -91,21 +87,6 @@ Autorent/
 - ➕ Dodawanie nowych pojazdów
 - ✏️ Edytowanie istniejących pojazdów (w tym zdjęcia)
 - 🗑️ Usuwanie pojazdów
-- 📱 Zarządzanie rezerwacjami
-
-## Dane Logowania - Admin
-
-## Dane Logowania - Admin
-
-Utworzone automatycznie przez `python manage.py setup`:
-
-| Pole | Wartość |
-|------|---------|
-| Username | admin |
-| Email | admin@autorent.pl |
-| Hasło | admin123 |
-
-**Możesz się zalogować za pomocą username'u lub emaila!**
 
 ## Dodatkowe Komendy
 
@@ -119,7 +100,7 @@ python manage.py create_admin --username nazwa_admina --email email@example.com 
 - **Baza danych:** SQLite (db.sqlite3)
 - **Framework:** Django 6.0.5
 - **Auth:** Wbudowany system użytkowników Django
-- **Media:** Zdjęcia przechowywane w `media/cars/`
+- **Media:** Zdjęcia przechowywane w folderze `media/cars/`
 - **CSRF Protection:** Wdrożona na wszystkich formularzach
 - **Responsywny Design:** Bootstrap-like CSS z `style.css`
 
@@ -139,20 +120,6 @@ python manage.py create_admin --username nazwa_admina --email email@example.com 
 | `/panel-admina/edytuj/<slug>/` | Edytuj pojazd |
 | `/panel-admina/usun/<slug>/` | Usuń pojazd |
 
-## Rozwiązywanie Problemów
-
-### Brak zdjęć samochodów
-Upewnij się, że folder `media/cars/` istnieje i zawiera pliki `.jpg`.
-
-### Błąd dostępu do panelu admin
-Upewnij się, że jesteś zalogowany jako użytkownik z `is_staff=True`.
-
-### Błędy bazy danych
-Uruchom migracje ponownie:
-```bash
-python manage.py migrate
-```
-
 ## Autor
-
-Projekt stworzony dla celów edukacyjnych.
+Jakub Mika - backend
+Kacper Łukasiewicz - frontend
