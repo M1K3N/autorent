@@ -104,22 +104,6 @@ python manage.py create_admin --username nazwa_admina --email email@example.com 
 - **CSRF Protection:** Wdrożona na wszystkich formularzach
 - **Responsywny Design:** Bootstrap-like CSS z `style.css`
 
-## Adresy URL
-
-| URL | Opis |
-|-----|------|
-| `/` | Strona główna |
-| `/samochody/` | Lista wszystkich samochodów |
-| `/samochody/<slug>/` | Szczegóły pojazdu |
-| `/rezerwacja/<slug>/` | Formularz rezerwacji |
-| `/profil/` | Profil użytkownika |
-| `/logowanie/` | Logowanie |
-| `/rejestracja/` | Rejestracja |
-| `/panel-admina/` | Panel administracyjny (wymaga is_staff) |
-| `/panel-admina/dodaj/` | Dodaj pojazd |
-| `/panel-admina/edytuj/<slug>/` | Edytuj pojazd |
-| `/panel-admina/usun/<slug>/` | Usuń pojazd |
-
 ## Autor
 Jakub Mika - backend
 Kacper Łukasiewicz - frontend
