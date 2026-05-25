@@ -105,5 +105,5 @@ python manage.py create_admin --username nazwa_admina --email email@example.com 
 - **Responsywny Design:** Bootstrap-like CSS z `style.css`
 
 ## Autor
-Jakub Mika - backend
-Kacper Łukasiewicz - frontend
+- Jakub Mika - backend
+- Kacper Łukasiewicz - frontend
