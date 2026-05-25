@@ -1,0 +1,60 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}{{ car.brand }} {{ car.model_name }} - AutoRent{% endblock %}
+{% block content %}
+
+<section class="car-details">
+    <div class="container">
+        <div class="car-details-grid">
+            <div class="car-image">
+                {% if car.image %}
+                    <img src="{{ car.image.url }}" alt="{{ car.brand }} {{ car.model_name }}">
+                {% else %}
+                    <div style="background: #f0f0f0; height: 400px; display: flex; align-items: center; justify-content: center; border-radius: 8px; color: #999; font-size: 18px;">Brak zdjęcia</div>
+                {% endif %}
+            </div>
+
+            <div class="car-info">
+                <h2>{{ car.brand }} {{ car.model_name }}</h2>
+                <p>Rok produkcji: {{ car.year }}</p>
+                <p>Silnik: {{ car.engine }}</p>
+                <p>Skrzynia: {{ car.transmission }}</p>
+                <p>Typ: {{ car.car_type }}</p>
+                <p>Moc: {{ car.power }}</p>
+                <p>Liczba miejsc: {{ car.seats }}</p>
+
+                <h3>{{ car.price_per_day }} zł / doba</h3>
+
+                {% if car.is_available %}
+                    <p><strong>Status:</strong> Dostępny do rezerwacji</p>
+                    <a href="{% url 'reservation' slug=car.slug %}" class="btn">Zarezerwuj</a>
+                {% else %}
+                    <p><strong>Status:</strong> Niedostępny</p>
+                    <button class="btn" disabled>Samochód niedostępny</button>
+                {% endif %}
+            </div>
+        </div>
+
+        {% if similar.exists %}
+        <div class="similar-cars">
+            <h3>Podobne pojazdy</h3>
+            <div class="cars-grid">
+                {% for item in similar %}
+                <div class="car-card">
+                    {% if item.image %}
+                        <img src="{{ item.image.url }}" alt="{{ item.brand }} {{ item.model_name }}">
+                    {% else %}
+                        <div style="background: #f0f0f0; height: 200px; display: flex; align-items: center; justify-content: center; border-radius: 8px; color: #999;">Brak zdjęcia</div>
+                    {% endif %}
+                    <h3>{{ item.brand }} {{ item.model_name }}</h3>
+                    <p>{{ item.car_type }} • {{ item.transmission }} • {{ item.engine }}</p>
+                    <span>{{ item.price_per_day }} zł / doba</span>
+                    <a href="{% url 'detail' slug=item.slug %}" class="btn">Zobacz</a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

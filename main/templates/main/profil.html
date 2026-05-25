@@ -1,0 +1,81 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Profil użytkownika - AutoRent{% endblock %}
+
+{% block content %}
+<section class="profile-section">
+    <div class="container">
+
+        <h2>Mój profil</h2>
+
+        <div class="profile-box">
+            <p>
+                <strong>Nazwa użytkownika:</strong>
+                {{ request.user.username }}
+            </p>
+
+            <p>
+                <strong>Imię:</strong>
+                {{ request.user.first_name|default:"Nie podano" }}
+            </p>
+
+            <p>
+                <strong>Nazwisko:</strong>
+                {{ request.user.last_name|default:"Nie podano" }}
+            </p>
+
+            <p>
+                <strong>Email:</strong>
+                {{ request.user.email|default:"Nie podano" }}
+            </p>
+
+            <p>
+                <strong>Telefon:</strong>
+                {% if profile and profile.phone %}
+                    {{ profile.phone }}
+                {% else %}
+                    Nie podano
+                {% endif %}
+            </p>
+
+            <p>
+                <strong>Adres:</strong>
+                {% if profile and profile.address %}
+                    {{ profile.address }}
+                {% else %}
+                    Nie podano
+                {% endif %}
+            </p>
+        </div>
+
+        <h3>Historia rezerwacji</h3>
+
+        {% if reservations %}
+            {% for reservation in reservations %}
+                <div class="reservation-card">
+                    <p>
+                        <strong>Samochód:</strong>
+                        {{ reservation.car.brand }} {{ reservation.car.model_name }}
+                    </p>
+
+                    <p>
+                        <strong>Termin:</strong>
+                        {{ reservation.pickup_date }} - {{ reservation.return_date }}
+                    </p>
+
+                    <p>
+                        <strong>Status:</strong>
+                        {{ reservation.get_status_display }}
+                    </p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="profile-box">
+                <p>Nie masz jeszcze żadnych rezerwacji.</p>
+            </div>
+        {% endif %}
+
+    </div>
+</section>
+{% endblock %}

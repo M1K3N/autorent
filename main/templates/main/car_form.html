@@ -1,0 +1,117 @@
+{% extends 'main/base.html' %}
+
+{% block title %}{{ title }} - AutoRent{% endblock %}
+
+{% block content %}
+<section class="admin-form-section">
+    <div class="container">
+        <h2>{{ title }}</h2>
+        
+        <form method="post" enctype="multipart/form-data" class="car-form">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <h3>Informacje podstawowe</h3>
+                
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="{{ form.brand.id_for_label }}">Marka</label>
+                        {{ form.brand }}
+                        {% if form.brand.errors %}<span class="error">{{ form.brand.errors }}</span>{% endif %}
+                    </div>
+                    <div class="form-col">
+                        <label for="{{ form.model_name.id_for_label }}">Model</label>
+                        {{ form.model_name }}
+                        {% if form.model_name.errors %}<span class="error">{{ form.model_name.errors }}</span>{% endif %}
+                    </div>
+                    <div class="form-col">
+                        <label for="{{ form.year.id_for_label }}">Rok</label>
+                        {{ form.year }}
+                        {% if form.year.errors %}<span class="error">{{ form.year.errors }}</span>{% endif %}
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="{{ form.car_type.id_for_label }}">Typ pojazdu</label>
+                        {{ form.car_type }}
+                        {% if form.car_type.errors %}<span class="error">{{ form.car_type.errors }}</span>{% endif %}
+                    </div>
+                    <div class="form-col">
+                        <label for="{{ form.seats.id_for_label }}">Liczba miejsc</label>
+                        {{ form.seats }}
+                        {% if form.seats.errors %}<span class="error">{{ form.seats.errors }}</span>{% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <h3>Specyfikacja techniczna</h3>
+                
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="{{ form.engine.id_for_label }}">Silnik</label>
+                        {{ form.engine }}
+                        {% if form.engine.errors %}<span class="error">{{ form.engine.errors }}</span>{% endif %}
+                    </div>
+                    <div class="form-col">
+                        <label for="{{ form.transmission.id_for_label }}">Skrzynia biegów</label>
+                        {{ form.transmission }}
+                        {% if form.transmission.errors %}<span class="error">{{ form.transmission.errors }}</span>{% endif %}
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="{{ form.power.id_for_label }}">Moc silnika</label>
+                        {{ form.power }}
+                        {% if form.power.errors %}<span class="error">{{ form.power.errors }}</span>{% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <h3>Cena i dostępność</h3>
+                
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="{{ form.price_per_day.id_for_label }}">Cena za dobę (zł)</label>
+                        {{ form.price_per_day }}
+                        {% if form.price_per_day.errors %}<span class="error">{{ form.price_per_day.errors }}</span>{% endif %}
+                    </div>
+                    <div class="form-col checkbox-col">
+                        <label for="{{ form.is_available.id_for_label }}">
+                            {{ form.is_available }}
+                            <span>Dostępny</span>
+                        </label>
+                        {% if form.is_available.errors %}<span class="error">{{ form.is_available.errors }}</span>{% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <h3>Zdjęcie</h3>
+                
+                <div class="form-col">
+                    <label for="{{ form.image.id_for_label }}">Wgraj obraz</label>
+                    {{ form.image }}
+                    {% if form.image.errors %}<span class="error">{{ form.image.errors }}</span>{% endif %}
+                    <small style="display: block; margin-top: 5px; color: #666;">Obsługiwane formaty: JPG, PNG, WebP (max 5MB)</small>
+                </div>
+
+                {% if form.instance.image %}
+                <div style="margin-top: 20px;">
+                    <p><strong>Aktualny obraz:</strong></p>
+                    <img src="{{ form.instance.image.url }}" alt="Aktualny obraz" style="max-width: 200px; border-radius: 8px;">
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Zapisz pojazd</button>
+                <a href="{% url 'admin_panel' %}" class="btn btn-secondary">Anuluj</a>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}

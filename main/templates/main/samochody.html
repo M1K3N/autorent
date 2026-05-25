@@ -1,0 +1,78 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="cars-page">
+    <div class="container">
+        <h2>Dostępne pojazdy</h2>
+
+        <form method="GET" action="{% url 'cars' %}">
+            <div class="form-group">
+                <label for="pickup-date">Data odbioru</label>
+                <input
+                    type="date"
+                    id="pickup-date"
+                    name="pickup_date"
+                    value="{{ selected_pickup_date }}"
+                >
+            </div>
+
+            <div class="form-group" style="margin-bottom: 20px;">
+                <label for="return-date">Data zwrotu</label>
+                <input
+                    type="date"
+                    id="return-date"
+                    name="return_date"
+                    value="{{ selected_return_date }}"
+                >
+            </div>
+
+            <div class="filters">
+            <select name="brand">
+                <option value="">Wybierz markę</option>
+                <option value="BMW" {% if selected_brand == "BMW" %}selected{% endif %}>BMW</option>
+                <option value="Audi" {% if selected_brand == "Audi" %}selected{% endif %}>Audi</option>
+                <option value="Toyota" {% if selected_brand == "Toyota" %}selected{% endif %}>Toyota</option>
+                <option value="Volkswagen" {% if selected_brand == "Volkswagen" %}selected{% endif %}>Volkswagen</option>
+                <option value="Honda" {% if selected_brand == "Honda" %}selected{% endif %}>Honda</option>
+                <option value="Renault" {% if selected_brand == "Renault" %}selected{% endif %}>Renault</option>
+                <option value="Mercedes" {% if selected_brand == "Mercedes" %}selected{% endif %}>Mercedes</option>
+            </select>
+
+            <select name="type">
+                <option value="">Wybierz typ pojazdu</option>
+                <option value="Hatchback" {% if selected_type == "Hatchback" %}selected{% endif %}>Hatchback</option>
+                <option value="Sedan" {% if selected_type == "Sedan" %}selected{% endif %}>Sedan</option>
+                <option value="SUV" {% if selected_type == "SUV" %}selected{% endif %}>SUV</option>
+                <option value="Coupe" {% if selected_type == "Coupe" %}selected{% endif %}>Coupe</option>
+                <option value="Sport" {% if selected_type == "Sport" %}selected{% endif %}>Sport</option>
+                <option value="Premium" {% if selected_type == "Premium" %}selected{% endif %}>Premium</option>
+            </select>
+            
+            <button type="submit" class="btn">Filtruj</button>
+            <a href="{% url 'cars' %}" class="btn">Wyczyść</a>
+            </div>
+        </form>
+
+        <div class="cars-grid">
+            {% if cars.exists %}
+                {% for car in cars %}
+                <div class="car-card">
+                    {% if car.image %}
+                        <img src="{{ car.image.url }}" alt="{{ car.brand }} {{ car.model_name }}">
+                    {% else %}
+                        <div style="background: #f0f0f0; height: 200px; display: flex; align-items: center; justify-content: center; border-radius: 8px; color: #999;">Brak zdjęcia</div>
+                    {% endif %}
+                    <h3>{{ car.brand }} {{ car.model_name }}</h3>
+                    <p>{{ car.car_type }} • {{ car.transmission }} • {{ car.engine }}</p>
+                    <span>{{ car.price_per_day }} zł / doba</span>
+                    <a href="{% url 'detail' slug=car.slug %}" class="btn">Szczegóły</a>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p>Brak samochodów dostępnych dla wybranych filtrów lub terminu.</p>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

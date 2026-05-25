@@ -1,0 +1,19 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Usuń pojazd - AutoRent{% endblock %}
+
+{% block content %}
+<section class="admin-delete-section">
+    <div class="container">
+        <h2>Usuń pojazd</h2>
+        <p>Czy na pewno chcesz usunąć pojazd <strong>{{ car.brand }} {{ car.model_name }}</strong>?</p>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-actions">
+                <button type="submit" class="btn btn-danger">Tak, usuń</button>
+                <a href="{% url 'admin_panel' %}" class="btn">Anuluj</a>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}

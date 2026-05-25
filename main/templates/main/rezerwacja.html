@@ -1,0 +1,45 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="reservation-section">
+
+    <div class="container">
+
+        <h2>Rezerwacja pojazdu</h2>
+
+        <form action="" method="POST">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="pickup-date">Data odbioru</label>
+                <input type="date" id="pickup-date" name="pickup_date" required>
+            </div>
+
+            <div class="form-group">
+                <label for="return-date">Data zwrotu</label>
+                <input type="date" id="return-date" name="return_date" required>
+            </div>
+
+            <div class="form-group">
+                <label for="pickup-location">Miejsce odbioru</label>
+                <input type="text" id="pickup-location" name="pickup_location" required>
+            </div>
+
+            <div class="form-group">
+                <label for="payment-method">Metoda płatności</label>
+                <select id="payment-method" name="payment_method" required>
+                    <option value="blik">BLIK</option>
+                    <option value="card">Karta</option>
+                    <option value="transfer">Przelew</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn">Potwierdź rezerwację</button>
+
+        </form>
+
+    </div>
+
+</section>
+{% endblock %}

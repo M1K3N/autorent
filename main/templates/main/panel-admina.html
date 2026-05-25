@@ -1,0 +1,73 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="admin-panel">
+
+    <div class="container">
+
+        <h2>Panel administratora</h2>
+
+        {% if error %}
+        <div class="alert alert-error">{{ error }}</div>
+        {% endif %}
+
+        <div class="admin-actions">
+            <a href="{% url 'car_create' %}" class="btn">Dodaj pojazd</a>
+        </div>
+
+        <h3>Zarządzaj samochodami</h3>
+
+        {% if cars %}
+        <table class="admin-table">
+
+            <thead>
+                <tr>
+                    <th>Zdjęcie</th>
+                    <th>Marka</th>
+                    <th>Model</th>
+                    <th>Rok</th>
+                    <th>Cena/dobę</th>
+                    <th>Status</th>
+                    <th>Akcje</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for car in cars %}
+                <tr>
+                    <td>
+                        {% if car.image %}
+                            <img src="{{ car.image.url }}" alt="{{ car.brand }}" style="max-width: 80px; max-height: 60px; border-radius: 4px;">
+                        {% else %}
+                            <span style="color: #999;">Brak zdjęcia</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ car.brand }}</td>
+                    <td>{{ car.model_name }}</td>
+                    <td>{{ car.year }}</td>
+                    <td>{{ car.price_per_day }} zł</td>
+                    <td>
+                        {% if car.is_available %}
+                            <span style="color: green;">Dostępny</span>
+                        {% else %}
+                            <span style="color: red;">Niedostępny</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'car_update' slug=car.slug %}" class="btn">Edytuj</a>
+                        <a href="{% url 'car_delete' slug=car.slug %}" class="btn btn-danger">Usuń</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+        {% else %}
+        <p>Brak samochodów w bazie danych.</p>
+        {% endif %}
+
+    </div>
+
+</section>
+{% endblock %}

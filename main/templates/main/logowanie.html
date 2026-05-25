@@ -1,0 +1,32 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="auth-section">
+
+    <div class="auth-container">
+
+        <h2>Logowanie</h2>
+        <form action="" method="POST">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="username" placeholder="Podaj email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Hasło</label>
+                <input type="password" id="password" name="password" placeholder="Podaj hasło" required>
+            </div>
+
+            <button type="submit" class="btn">Zaloguj się</button>
+
+        </form>
+
+        <p>Nie masz konta? <a href="{% url 'register' %}">Zarejestruj się</a></p>
+
+    </div>
+
+</section>
+{% endblock %}

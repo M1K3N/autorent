@@ -1,0 +1,130 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+
+        <!-- HERO -->
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <h2>
+                    Wynajmij samochód szybko i wygodnie
+                </h2>
+                
+                <p>
+                    Nowoczesna wypożyczalnia samochodów online.
+                    Wybierz pojazd, zarezerwuj termin i ruszaj w drogę.
+                
+                    Niezależnie od tego, czy potrzebujesz auta na weekendowy wyjazd,
+                    podróż służbową czy codzienne dojazdy — u nas znajdziesz coś dla siebie.
+                </p>
+
+                <a href="{% url 'cars' %}" class="btn">
+                    Zobacz ofertę
+                </a>
+
+            </div>
+
+
+            <div class="hero-image">
+
+                <img
+                    src="{% static 'main/images/hero-car.png' %}"
+                    alt="Samochód AutoRent"
+                >
+
+            </div>
+
+        </section>
+
+        <!-- POPULARNE AUTA -->
+        <section id="popular" class="featured-cars">
+
+            <div class="container">
+
+                <h2>
+                    Popularne samochody
+                </h2>
+
+                {% if featured_cars.exists %}
+                <div class="cars-grid">
+                    {% for car in featured_cars %}
+                    <div class="car-card">
+                        {% if car.image %}
+                            <img src="{{ car.image.url }}" alt="{{ car.brand }} {{ car.model_name }}">
+                        {% else %}
+                            <div style="background: #f0f0f0; height: 200px; display: flex; align-items: center; justify-content: center; border-radius: 8px; color: #999;">Brak zdjęcia</div>
+                        {% endif %}
+                        <h3>{{ car.brand }} {{ car.model_name }}</h3>
+                        <p>{{ car.car_type }} • {{ car.transmission }} • {{ car.engine }}</p>
+                        <span>{{ car.price_per_day }} zł / doba</span>
+                        <a href="{% url 'detail' slug=car.slug %}" class="btn">Szczegóły</a>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p>Brak dostępnych samochodów.</p>
+                {% endif %}
+
+            </div>
+
+        </section>
+
+
+        <!-- O NAS -->
+        <section id="onas" class="about">
+
+            <div class="container">
+
+                <h2>
+                    Dlaczego AutoRent?
+                </h2>
+
+                <div class="about-grid">
+
+                    <div class="about-box">
+
+                        <h3>
+                            Nowoczesna flota
+                        </h3>
+
+                        <p>
+                            Nowe i regularnie serwisowane pojazdy.
+                        </p>
+
+                    </div>
+
+
+                    <div class="about-box">
+
+                        <h3>
+                            Szybka rezerwacja
+                        </h3>
+
+                        <p>
+                            Proces rezerwacji trwa mniej niż 5 minut.
+                        </p>
+
+                    </div>
+
+
+                    <div class="about-box">
+
+                        <h3>
+                            Bezpieczne płatności
+                        </h3>
+
+                        <p>
+                            Obsługa płatności online i bezpieczne logowanie.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+{% endblock %}

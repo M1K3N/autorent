@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="{% static 'main/images/logo-nowe.png' %}" type="image/png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}AutoRent{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'main/style.css' %}">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="{% url 'home' %}">
+                    <img src="{% static 'main/images/logo-nowe.png' %}" alt="AutoRent">
+                </a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'home' %}">Strona główna</a></li>
+                    <li><a href="{% url 'cars' %}">Samochody</a></li>
+                    {% if request.user.is_authenticated %}
+                        <li><a href="{% url 'profile' %}">Profil</a></li>
+                        {% if request.user.is_staff %}
+                            <li><a href="{% url 'admin_panel' %}">Panel admina</a></li>
+                        {% endif %}
+                        <li><a href="{% url 'logout' %}">Wyloguj</a></li>
+                    {% else %}
+                        <li><a href="{% url 'login' %}">Logowanie</a></li>
+                        <li><a href="{% url 'register' %}">Rejestracja</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    {% if messages %}
+    <div class="messages container">
+        {% for message in messages %}
+            <div class="message {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <main id="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>AutoRent &copy; 2026. Wypożyczalnia samochodów.</p>
+        </div>
+    </footer>
+</body>
+</html>
